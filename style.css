@@ -4,7 +4,7 @@ body {
 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: #f0f0f0;
+	background-color: #F5F5F5;
 }
 #app {
 	display: flex;
@@ -22,14 +22,13 @@ main {
     width: 1250;
 	max-width: 1250px;
 	margin: 0 auto;
-	background-color: #fff;
+	background-color: #F4F4F6;
 	padding: 20px;
 	border-radius: 8px;
-	box-shadow:
-0 0 10px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 #content h2 {
-	color: #2f8d46;
+	color: #1B1127;
 }
 
 #search-input {
@@ -69,23 +68,51 @@ form button:hover {
 
 #side-content {
 	display: none;
-    width: 1000;
-	max-width: 1000px;
+    width: 1200;
+	max-width: 1200px;
+	max-height: 800px;
 	margin: 0 auto;
-	background-color: #fff;
+	background-color: #F4F4F6;
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	transition-duration: 4s;
   	transition-delay: 2s;
-	
+	overflow-y: scroll ;
+}
+#side-content::-webkit-scrollbar {
+  display: none;
 }
 
-#project1 {
-	max-width: 900px;
-	margin: 5px;
-	background-color: #6756db;
+.project{
+	width: 570px;
+	min-width: 18rem;
+	margin: 10px;
+	background-color: #B9BCCB;
+	color: #1B1127;
 	padding: 10px;
 	border-radius: 4px;
 	box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
+	
+}
+
+
+li {
+    display: inline-block;
+    background-color: #64549C;
+	color: #f0f0f0;
+	font-size: 12px;
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+.btn {
+	background-color: #F73028;
+	color: #1B1127;
+}
+
+.btn:hover {
+	background-color: #88CCEC;
 }
