@@ -1,6 +1,8 @@
 function changeContent(page) {
 	var contentDiv = document.getElementById('side-content');
 	contentDiv.style.display='block';
+	const mainContentDiv = document.getElementById('content');
+	mainContentDiv.style.width = '350px';
 	switch (page) {
 		case 'about':
 			contentDiv.innerHTML = `
