@@ -6,8 +6,7 @@ function changeContent(page) {
 	switch (page) {
 		case 'about':
 			contentDiv.innerHTML = `
-			
-				<h2>Halooooo</h2>
+				<h2>Haloo</h2>
 				<p>
 					Kenalin , Saya Julia!.
 				</p>
@@ -16,10 +15,10 @@ function changeContent(page) {
 				</p><p>
 					Saya biasanya ditempatkan di backend developer dan kadang juga jadi fullstack developer.
 				</p><p>	Kalau untuk database sendiri, yang sering saya gunakan itu SQL Database seperti OracleDB dan PostgreSQL.
-					Pernah pake Redis juga dan pakai MongoDB (lebih sering dipakai untuk proyek pribadi yang tidak pernah dideploy ><)
+					Pernah pake Redis juga dan pakai MongoDB (lebih sering dipakai untuk proyek pribadi yang tidak pernah dipublish....)
 				</p>
 				<p>
-					Anyway, salam kenal yaaaaa
+					Anyway, salam kenal 👍
 				</p>
 			`;
 			break;
@@ -34,8 +33,8 @@ function changeContent(page) {
 						<h3 class="card-header">Sales Apps Project</h3>
 						<div class="card-body">
 							<h6 class="card-title">
-								Klien : Maybank Indonesia <p/>
 								Role sebagai Backend Developer (Java)<p/>
+								di Maybank Indonesia tahun 2024 - 2025 <p/>
 							</h6>
 						</div>
 						<div class="card-footer">
@@ -50,11 +49,11 @@ function changeContent(page) {
 						</div>
 					</div>
 					<div id='project2' class='card project'> 
-						<h3 class="card-header">Protelindo Dashboard Project</h3>
+						<h3 class="card-header">Data Migration Project</h3>
 						<div class="card-body">
 							<h6 class="card-title">
-								Klien : Protelindo <p/>
 								Role sebagai FullStack Developer  (ASP.NET)<p/>
+								di Protelindo tahun 2024 <p/>
 							</h6>
 						</div>
 						<div class="card-footer">
@@ -66,11 +65,11 @@ function changeContent(page) {
 						</div>
 					</div>
 					<div id='project3' class='card project'>
-						<h3 class="card-header">Credit Policy System Project </h3>
+						<h3 class="card-header">Security Apps Project </h3>
 						<div class="card-body">
 							<h6 class="card-title">
-								Klien : Maybank Indonesia <p/>
-								Role sebagai FullStack Developer  (Java)<p/>
+								Role sebagai Back End Developer  (.NET4.8)<p/>
+								di <b>NDA</b> tahun 2025 <p/>
 							</h6>
 						</div>
 						<div class="card-footer">
@@ -85,8 +84,8 @@ function changeContent(page) {
 						<h3 class="card-header">ERP Project </h3>
 						<div class="card-body">
 							<h6 class="card-title">
-								Klien : MING <p/>
-								Role sebagai Supervisor IT <p/>
+							Role sebagai Supervisor IT <p/>
+							di MING tahun 2022 <p/>
 							</h6>
 						</div>
 						<div class="card-footer">
@@ -101,7 +100,9 @@ function changeContent(page) {
 				
 				`;
 			break;
-
+		case 'downResume':
+			contentDiv.innerHTML = `<div><a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Klik disini</a></div>`;
+			break;
 		default:
 			contentDiv.innerHTML = '<h2>Page not found!</h2>';
 	}
