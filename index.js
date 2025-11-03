@@ -9,7 +9,7 @@ function changeContent(page) {
 			
 				<h2>Halooooo</h2>
 				<p>
-					Kenalin , Saya Fran!.
+					Kenalin , Saya Julia!.
 				</p>
 				<p>
 					Saya sudah menjadi software developer selama 4 tahun lebih. Bahasa pemograman yang saya biasa saya gunakan itu Java SpringBoot. Tapi saya juga bisa .NET, Javascript, dan Python.
@@ -107,12 +107,6 @@ function changeContent(page) {
 	}
 }
 
-// function hideSideContent(){
-// 	var contentDiv = document.getElementById('side-content');
-// 	// contentDiv.style.display='none';
-	
-// }
-
 function changePlaceholder() {
     var placeHolder = ['Search for topics...', 'Find information...', 'Type your query...', 'Explore content...', 'Ask anything...'];
     var n = 0;
@@ -159,7 +153,16 @@ function changePlaceholder() {
 
 // Call the function to start changing placeholders
 changePlaceholder();
-// hideSideContent();
+
+// Hide side-content when clicking outside
+document.addEventListener('click', function(event) {
+    var sideContent = document.getElementById('side-content');
+    var contentDiv = document.getElementById('content');
+    if (!sideContent.contains(event.target) && sideContent.style.display === 'block') {
+        sideContent.style.display = 'none';
+        contentDiv.style.width = ''; // Reset to original width
+    }
+});
 
 {/* <form> 
 				<label for="name">Name:</label> 
