@@ -2,7 +2,7 @@ function changeContent(page) {
 	var contentDiv = document.getElementById('side-content');
 	contentDiv.style.display='block';
 	const mainContentDiv = document.getElementById('content');
-	mainContentDiv.style.width = '350px';
+	// mainContentDiv.style.width = '350px';
 	switch (page) {
 		case 'about':
 			contentDiv.innerHTML = `
@@ -101,7 +101,8 @@ function changeContent(page) {
 				`;
 			break;
 		case 'downResume':
-			contentDiv.innerHTML = `<div><a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Klik disini</a></div>`;
+			contentDiv.innerHTML = `
+				<a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Klik disini</a>`;
 			break;
 		default:
 			contentDiv.innerHTML = '<h2>Page not found!</h2>';
