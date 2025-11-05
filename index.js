@@ -1,102 +1,62 @@
 async function changeContent(page) {
 	var contentDiv = document.getElementById('side-content');
 	contentDiv.style.display='block';
-	
-	const projectCard = await fetch(`http://localhost:3000/card/lang-id?lang_id=IDN`);
-	
+	let language = sessionStorage.getItem("languange");
+	sessionStorage.setItem("page", page);
 	switch (page) {
 		case 'about':
-			const getAboutPageData = await fetch(`http://localhost:3000/topic/about?about=About&lang_id=EN`);
+			const getAboutPageData = await fetch(`http://localhost:3000/topic/about?about=About&lang_id=${language}`);
 			let dataAbout = await getAboutPageData.json();
 			contentDiv.innerHTML = ` ${dataAbout.data.title} <div id='get-detail'>${dataAbout.data.details}</div> `;
 			let details = document.getElementById('get-detail').textContent;
-			contentDiv.innerHTML = ` ${dataAbout.data.title} ${details}`;
+			contentDiv.innerHTML = `${dataAbout.data.title} ${details}`;
 			break;
 		case 'projects':
-			contentDiv.innerHTML = 
-				`<h2>Proyek</h2> 
-				<p>
-					Beberapa proyek yang pernah saya kerjakan :)
-				</p> 
-				<div class="row grid text-center">
-					<div id='project1' class="card project ">
-						<h3 class="card-header">Sales Apps Project</h3>
-						<div class="card-body">
-							<h6 class="card-title">
-								Role sebagai Backend Developer (Java)<p/>
-								di Maybank Indonesia tahun 2024 - 2025 <p/>
-							</h6>
-						</div>
-						<div class="card-footer">
-							<ul>
-								<li>Java Springboot</li>
-								<li>JSP</li>
-								<li>NodeJS/ExpressJS</li>
-								<li>ReactJS</li>
-								<li>React Native</li>
-								<li>OracleDB</li>
-							</ul>
-						</div>
-					</div>
-					<div id='project2' class='card project'> 
-						<h3 class="card-header">Data Migration Project</h3>
-						<div class="card-body">
-							<h6 class="card-title">
-								Role sebagai FullStack Developer  (ASP.NET)<p/>
-								di Protelindo tahun 2024 <p/>
-							</h6>
-						</div>
-						<div class="card-footer">
-							<ul>
-								<li>ASP.NET</li>
-								<li>PostgreSQL</li>
-								<li>SQL Server</li>
-							</ul>
-						</div>
-					</div>
-					<div id='project3' class='card project'>
-						<h3 class="card-header">Security Web Apps Project </h3>
-						<div class="card-body">
-							<h6 class="card-title">
-								Role sebagai Back End Developer (.NET4.8)<p/>
-								di <b>sebuah perusahaan di Kalimantan</b> tahun 2025 <p/>
-							</h6>
-						</div>
-						<div class="card-footer">
-							<ul>
-								<li>.NET4.8</li>
-								<li>PostgreSQL</li>
-								<li>ReactJS</li>
-								<li>React Native</li>
-							</ul>
-						</div>
-					</div>
-					<div id='project4' class='card project'>
-						<h3 class="card-header">ERP Ming Project </h3>
-						<div class="card-body">
-							<h6 class="card-title">
-							Role sebagai Supervisor IT <p/>
-							di MING tahun 2022 <p/>
-							</h6>
-						</div>
-						<div class="card-footer">
-							<ul>
-								<li>Python (Frappe)</li>
-								<li>HTML</li>
-								<li>MariaDB</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+			const projectCard = await fetch(`http://localhost:3000/card/lang-id?lang_id=${language}`);
+			let dataCards = await projectCard.json();
+			const getProjectPageData = await fetch(`http://localhost:3000/topic/about?about=Projects&lang_id=${language}`);
+			let dataProject = await getProjectPageData.json();
+			console.log(dataCards)
+			if(dataCards.statusCode !== 200) {
+				contentDiv.innerHTML = '<h2>Page not found!</h2>';
+			} else {
+				let htmlCards = ``;
+				for (let element = 0; element < dataCards.data.length; element++) {
+					const e = dataCards.data[element];
+					let liHtml = ``;
+					e.stacks.forEach(x => {
+						liHtml += `<li>${x}</li>`
+					});
+					let card = `<div id='project${element}' class="card project ">
+							<h3 class="card-header">${e.title}</h3>
+							<div class="card-body">
+								<h6 class="card-title">
+									${e.description}
+								</h6>
+							</div>
+							<div class="card-footer">
+								<ul>
+									${liHtml}
+								</ul>
+							</div>
+						</div>`;
+
+					htmlCards += card;
+				};
 				
-				`;
+				contentDiv.innerHTML = ` ${dataProject.data.title} ${dataProject.data.details} <div class="row grid text-center"> ${htmlCards} </div>`;
+			}
+
+			
 			break;
 		case 'resume':
-			contentDiv.innerHTML = `
-				<a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Klik disini</a>`;
+			contentDiv.innerHTML = language == 'IDN' ? `
+				<a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Klik disini</a>` : `
+				<a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Click here</a>`;
 			break;
 		default:
 			contentDiv.innerHTML = '<h2>Page not found!</h2>';
+			contentDiv.style.display='none';
 	}
 }
 
@@ -124,4 +84,22 @@ async function getEverythingExceptProjectByLanguageId(lang) {
 
 	contentDiv.innerHTML = greetingHTML + buttonsHTML;
 }
-getEverythingExceptProjectByLanguageId('IDN');
+
+function setLanguageId() {
+	var sw = document.getElementById('languageSwitch');
+	sessionStorage.setItem("page", '');
+	let getActivePage = sessionStorage.getItem("page");
+	if (sw.checked === true ) {
+		getEverythingExceptProjectByLanguageId('EN');
+		sessionStorage.setItem("languange", "EN");
+		changeContent(getActivePage);
+		
+	} else { 
+		getEverythingExceptProjectByLanguageId('IDN');
+		sessionStorage.setItem("languange", "IDN");
+		changeContent(getActivePage);
+	}
+}
+setLanguageId();
+
+document.getElementById('languageSwitch').addEventListener('change', setLanguageId);

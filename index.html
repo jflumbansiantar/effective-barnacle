@@ -10,6 +10,18 @@
 <body>
 	<div id="app" >
 		<main>
+			<div class="topnav">
+				<div class="toggle-switch">
+					<label class="switch-label">
+						<input type="checkbox" class="checkbox" id="languageSwitch">
+							<span class="slider"></span>
+							<span class="toggle-text toggle-text-off" onclick="setLanguage()">IDN</span>
+							<span class="toggle-text toggle-text-on" onclick="setLanguage()">EN</span>
+							
+						
+					</label>
+				</div>
+			</div>
 			<div id="content"></div>
 			<div id="side-content" ></div>
 		</main>
