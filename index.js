@@ -1,28 +1,18 @@
-function changeContent(page) {
+async function changeContent(page) {
 	var contentDiv = document.getElementById('side-content');
 	contentDiv.style.display='block';
-	const mainContentDiv = document.getElementById('content');
-	// mainContentDiv.style.width = '350px';
+	
+	const projectCard = await fetch(`http://localhost:3000/card/lang-id?lang_id=IDN`);
+	
 	switch (page) {
 		case 'about':
-			contentDiv.innerHTML = `
-				<h2>Haloo</h2>
-				<p>
-					Kenalin , Saya Julia!.
-				</p>
-				<p>
-					Saya sudah menjadi software developer selama 4 tahun lebih. Bahasa pemograman yang saya biasa saya gunakan itu Java SpringBoot. Tapi saya juga bisa .NET, Javascript, dan Python.
-				</p><p>
-					Saya biasanya ditempatkan di backend developer dan kadang juga jadi fullstack developer.
-				</p><p>	Kalau untuk database sendiri, yang sering saya gunakan itu SQL Database seperti OracleDB dan PostgreSQL.
-					Pernah pake Redis juga dan pakai MongoDB (lebih sering dipakai untuk proyek pribadi yang tidak pernah dipublish....)
-				</p>
-				<p>
-					Anyway, salam kenal 👍
-				</p>
-			`;
+			const getAboutPageData = await fetch(`http://localhost:3000/topic/about?about=About&lang_id=EN`);
+			let dataAbout = await getAboutPageData.json();
+			contentDiv.innerHTML = ` ${dataAbout.data.title} <div id='get-detail'>${dataAbout.data.details}</div> `;
+			let details = document.getElementById('get-detail').textContent;
+			contentDiv.innerHTML = ` ${dataAbout.data.title} ${details}`;
 			break;
-		case 'project':
+		case 'projects':
 			contentDiv.innerHTML = 
 				`<h2>Proyek</h2> 
 				<p>
@@ -60,28 +50,29 @@ function changeContent(page) {
 							<ul>
 								<li>ASP.NET</li>
 								<li>PostgreSQL</li>
-								<li>Microsoft SQL Server</li>
+								<li>SQL Server</li>
 							</ul>
 						</div>
 					</div>
 					<div id='project3' class='card project'>
-						<h3 class="card-header">Security Apps Project </h3>
+						<h3 class="card-header">Security Web Apps Project </h3>
 						<div class="card-body">
 							<h6 class="card-title">
-								Role sebagai Back End Developer  (.NET4.8)<p/>
-								di <b>NDA</b> tahun 2025 <p/>
+								Role sebagai Back End Developer (.NET4.8)<p/>
+								di <b>sebuah perusahaan di Kalimantan</b> tahun 2025 <p/>
 							</h6>
 						</div>
 						<div class="card-footer">
 							<ul>
-								<li>Java Springboot</li>
-								<li>JSP</li>
-								<li>OracleDB</li>
+								<li>.NET4.8</li>
+								<li>PostgreSQL</li>
+								<li>ReactJS</li>
+								<li>React Native</li>
 							</ul>
 						</div>
 					</div>
 					<div id='project4' class='card project'>
-						<h3 class="card-header">ERP Project </h3>
+						<h3 class="card-header">ERP Ming Project </h3>
 						<div class="card-body">
 							<h6 class="card-title">
 							Role sebagai Supervisor IT <p/>
@@ -100,7 +91,7 @@ function changeContent(page) {
 				
 				`;
 			break;
-		case 'downResume':
+		case 'resume':
 			contentDiv.innerHTML = `
 				<a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Klik disini</a>`;
 			break;
@@ -109,74 +100,28 @@ function changeContent(page) {
 	}
 }
 
-function changePlaceholder() {
-    var placeHolder = ['Search for topics...', 'Find information...', 'Type your query...', 'Explore content...', 'Ask anything...'];
-    var n = 0;
-    var loopLength = placeHolder.length;
-    var searchInput = document.getElementById('search-input');
-    var currentText = '';
-    var charIndex = 0;
-    var isDeleting = false;
+/*	INI PEMANGGILAN API */
+async function getEverythingExceptProjectByLanguageId(lang) {
+	const getEverythingExceptProject = await fetch(`http://localhost:3000/topic/topic-by-lang-id?lang_id=${lang}`);
+	
+	const found = await getEverythingExceptProject.json();
+	let data = found.data;
+	var contentDiv = document.getElementById('content');
+	let greetings = data.find(d => d.about == 'Pembukaan' || d.about == 'Greeting');
+	const buttons = data.filter(d => d.about == 'Tombol' || d.about == 'Button');
 
-    function typeWriter() {
-        var currentPlaceholder = placeHolder[n];
+	//Greetings
+	let greetingHTML = greetings.title + greetings.details;
 
-        if (!isDeleting) {
-            // Typing effect
-            currentText = currentPlaceholder.substring(0, charIndex + 1);
-            charIndex++;
-            if (charIndex === currentPlaceholder.length) {
-                // Pause at end of word
-                setTimeout(function() {
-                    isDeleting = true;
-                }, 1000);
-            }
-        } else {
-            // Deleting effect
-            currentText = currentPlaceholder.substring(0, charIndex - 1);
-            charIndex--;
-            if (charIndex < 0) {
-                isDeleting = false;
-                n = (n + 1) % loopLength;
-                charIndex = 0;
-                // Pause before starting next word
-                setTimeout(typeWriter, 500);
-                return;
-            }
-        }
+	//Button
+	let buttonsHTML = ``;
+	for (let element = 0; element < buttons.length; element++) {
+		const e = buttons[element];
+		let btns = `<button class="btn btn-${e.details}" onclick="changeContent('${e.details}')">${e.title}</button>`;
 
-        searchInput.placeholder = currentText;
-        setTimeout(typeWriter, isDeleting ? 50 : 100); // Faster when deleting
-    }
+		buttonsHTML += btns;
+	};
 
-    // Start the typewriter effect
-    typeWriter();
+	contentDiv.innerHTML = greetingHTML + buttonsHTML;
 }
-
-// Call the function to start changing placeholders
-changePlaceholder();
-
-// Hide side-content when clicking outside
-document.addEventListener('click', function(event) {
-    var sideContent = document.getElementById('side-content');
-    var contentDiv = document.getElementById('content');
-    if (!sideContent.contains(event.target) && sideContent.style.display === 'block') {
-        sideContent.style.display = 'none';
-        contentDiv.style.width = ''; // Reset to original width
-    }
-});
-
-{/* <form> 
-				<label for="name">Name:</label> 
-				<input type="text" id="name" name="name" 
-						placeholder="Your Name" required>
-				<label for="email">Email:</label> 
-				<input type="email" id="email" name="email" 
-						placeholder="Your Email" required>
-				<label for="message">Message:</label> 
-				<textarea id="message" name="message" 
-							placeholder="Your Message" 
-							rows="4" required>
-					</textarea>
-				<button type="submit">Send Message</button> 
-				</form> */}
+getEverythingExceptProjectByLanguageId('IDN');
