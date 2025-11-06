@@ -77,6 +77,7 @@ async function changeContent(page) {
 /*	INI PEMANGGILAN API */
 async function getEverythingExceptProjectByLanguageId(lang) {
 	let baseUrl = sessionStorage.getItem('baseUrl');
+	let language = sessionStorage.getItem('languange');
 	fetch(`${baseUrl}topic/about?about=About&lang_id=${language}`, {
 				method: 'GET',
 				headers: {
