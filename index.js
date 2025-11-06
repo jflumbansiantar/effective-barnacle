@@ -1,22 +1,36 @@
 async function changeContent(page) {
+	let baseUrl = sessionStorage.getItem('baseUrl');
 	var contentDiv = document.getElementById('side-content');
 	contentDiv.style.display='block';
 	let language = sessionStorage.getItem("languange");
 	sessionStorage.setItem("page", page);
 	switch (page) {
 		case 'about':
-			const getAboutPageData = await fetch(`http://localhost:3000/topic/about?about=About&lang_id=${language}`);
+			let getAboutPageData;
+			// const getAboutPageData = await fetch(`${baseUrl}topic/about?about=About&lang_id=${language}`);
+			fetch(`${baseUrl}topic/about?about=About&lang_id=${language}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-vercel-protection-bypass': '1XDhgtZF5angjBJmXpYiFBtyONrXPmP1',
+				}
+			})
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+					getAboutPageData = data
+				})
+				.catch(error => console.error('Error:', error));
 			let dataAbout = await getAboutPageData.json();
 			contentDiv.innerHTML = ` ${dataAbout.data.title} <div id='get-detail'>${dataAbout.data.details}</div> `;
 			let details = document.getElementById('get-detail').textContent;
 			contentDiv.innerHTML = `${dataAbout.data.title} ${details}`;
 			break;
 		case 'projects':
-			const projectCard = await fetch(`http://localhost:3000/card/lang-id?lang_id=${language}`);
+			const projectCard = await fetch(`${baseUrl}card/lang-id?lang_id=${language}`);
 			let dataCards = await projectCard.json();
-			const getProjectPageData = await fetch(`http://localhost:3000/topic/about?about=Projects&lang_id=${language}`);
+			const getProjectPageData = await fetch(`${baseUrl}topic/about?about=Projects&lang_id=${language}`);
 			let dataProject = await getProjectPageData.json();
-			console.log(dataCards)
 			if(dataCards.statusCode !== 200) {
 				contentDiv.innerHTML = '<h2>Page not found!</h2>';
 			} else {
@@ -62,7 +76,21 @@ async function changeContent(page) {
 
 /*	INI PEMANGGILAN API */
 async function getEverythingExceptProjectByLanguageId(lang) {
-	const getEverythingExceptProject = await fetch(`http://localhost:3000/topic/topic-by-lang-id?lang_id=${lang}`);
+	let baseUrl = sessionStorage.getItem('baseUrl');
+	fetch(`${baseUrl}topic/about?about=About&lang_id=${language}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-vercel-protection-bypass': '1XDhgtZF5angjBJmXpYiFBtyONrXPmP1',
+				}
+			})
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+					getAboutPageData = data
+				})
+				.catch(error => console.error('Error:', error));
+	// const getEverythingExceptProject = await fetch(`${baseUrl}topic/topic-by-lang-id?lang_id=${lang}`);
 	
 	const found = await getEverythingExceptProject.json();
 	let data = found.data;
@@ -86,6 +114,7 @@ async function getEverythingExceptProjectByLanguageId(lang) {
 }
 
 function setLanguageId() {
+	sessionStorage.setItem('baseUrl', 'https://symmetrical-eureka-46gjpz9qi-lumbansiantarjf-gmailcoms-projects.vercel.app/')
 	var sw = document.getElementById('languageSwitch');
 	sessionStorage.setItem("page", '');
 	let getActivePage = sessionStorage.getItem("page");
