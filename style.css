@@ -67,7 +67,7 @@ form button:hover {
 .project{
   position: relative;
 	max-width: 570px;
-	margin: auto;
+	margin: 10px;
 	background-color: #B9BCCB;
 	color: #1B1127;
 	padding: 10px;
