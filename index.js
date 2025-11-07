@@ -12,7 +12,6 @@ async function changeContent(page) {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'x-vercel-protection-bypass': '1XDhgtZF5angjBJmXpYiFBtyONrXPmP1',
 			}});
 			
 			let dataAbout = await getAboutPageData.json();
@@ -27,7 +26,6 @@ async function changeContent(page) {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'x-vercel-protection-bypass': '1XDhgtZF5angjBJmXpYiFBtyONrXPmP1',
 			}});
 			let dataCards = await projectCard.json();
 
@@ -35,7 +33,6 @@ async function changeContent(page) {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'x-vercel-protection-bypass': '1XDhgtZF5angjBJmXpYiFBtyONrXPmP1',
 			}});
 			let dataProject = await getProjectPageData.json();
 
@@ -73,8 +70,8 @@ async function changeContent(page) {
 			break;
 		case 'resume':
 			contentDiv.innerHTML = language == 'IDN' ? `
-				<a href="https://github.com/jflumbansiantar/resume-jul/blob/master/Resume%20Julia%202025.pdf" download="cv_julia_2025">Klik disini</a>` : `
-				<a href="https://github.com/jflumbansiantar/resume-jul/blob/master/Resume%20Julia%202025.pdf" download="cv_julia_2025">Click here</a>`;
+				<button class="btn btn-light"><a href="https://drive.google.com/file/d/1-jagslPLKrGSISK4t_R4ClFGiEjWQK_I/view?usp=sharing" download="cv_julia_2025">Klik disini</a></button>` : `
+				<button class="btn btn-light"><a href="https://drive.google.com/file/d/1-jagslPLKrGSISK4t_R4ClFGiEjWQK_I/view?usp=sharing" download="cv_julia_2025">Click here</a></button>`;
 			break;
 		default:
 			contentDiv.innerHTML = '<h2>Page not found!</h2>';
@@ -90,7 +87,6 @@ async function getEverythingExceptProjectByLanguageId(lang) {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'x-vercel-protection-bypass': '1XDhgtZF5angjBJmXpYiFBtyONrXPmP1',
 		}});
 
 	const found = await getEverythingExceptProject.json();
@@ -106,7 +102,7 @@ async function getEverythingExceptProjectByLanguageId(lang) {
 	let buttonsHTML = ``;
 	for (let element = 0; element < buttons.length; element++) {
 		const e = buttons[element];
-		let btns = `<button class="btn btn-${e.details}" onclick="changeContent('${e.details}')">${e.title}</button>`;
+		let btns = `<button class="btn btn-project btn-${e.details}" onclick="changeContent('${e.details}')">${e.title}</button>`;
 
 		buttonsHTML += btns;
 	};
@@ -156,9 +152,9 @@ function paralaxBackGround() {
 		"colors": {
 			"background": "#070f71",
 			"particles": [
-			"#64549C",
-			"#B9BCCB",
-			"#950032"
+				"#64549C",
+				"#B9BCCB",
+				"#950032"
 			]
 		},
 		"blending": "lighten",
