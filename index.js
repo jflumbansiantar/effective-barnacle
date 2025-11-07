@@ -128,7 +128,49 @@ function setLanguageId() {
 		sessionStorage.setItem("languange", "IDN");
 		changeContent(getActivePage);
 	}
+	
 }
 setLanguageId();
+paralaxBackGround();
 
 document.getElementById('languageSwitch').addEventListener('change', setLanguageId);
+
+function paralaxBackGround() {
+	return new FinisherHeader({
+		"count": 25,
+		"size": {
+			"min": 200,
+			"max": 900,
+			"pulse": 0.5
+		},
+		"speed": {
+			"x": {
+			"min": 1.0,
+			"max": 1.5
+			},
+			"y": {
+			"min": 0,
+			"max": 0.5
+			}
+		},
+		"colors": {
+			"background": "#070f71",
+			"particles": [
+			"#64549C",
+			"#B9BCCB",
+			"#950032"
+			]
+		},
+		"blending": "lighten",
+		"opacity": {
+			"center": 0.15,
+			"edge": 0.05
+		},
+		"skew": 0,
+		"shapes": [
+			"s", "t"
+		]
+	});
+}
+
+

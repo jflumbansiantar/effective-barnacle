@@ -10,6 +10,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+  background-attachment: fixed;
 }
 main {
 	flex: 1;
@@ -69,7 +70,7 @@ form button:hover {
 	color: #1B1127;
 	padding: 10px;
 	border-radius: 4px;
-	box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
+  box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
 }
 
 li {
@@ -194,6 +195,14 @@ button {
 .checkbox:checked ~ .toggle-text-on {
   opacity: 1;
   color:  var(--light);
+}
+
+#oneko {
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    pointer-events: none;
+    background-image: url(assets/oneko.gif);
 }
 
 @media(max-width: 1000px) {
