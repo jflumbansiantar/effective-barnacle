@@ -38,7 +38,7 @@ async function changeContent(page) {
 					'x-vercel-protection-bypass': '1XDhgtZF5angjBJmXpYiFBtyONrXPmP1',
 			}});
 			let dataProject = await getProjectPageData.json();
-			
+
 			if(dataCards.statusCode !== 200) {
 				contentDiv.innerHTML = '<h2>Page not found!</h2>';
 			} else {
@@ -73,8 +73,8 @@ async function changeContent(page) {
 			break;
 		case 'resume':
 			contentDiv.innerHTML = language == 'IDN' ? `
-				<a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Klik disini</a>` : `
-				<a href="https://drive.google.com/file/d/10qCh65XZG-iVdCE6hCynVL0JFciR8aPV/view?usp=sharing" download="cv_julia_2025">Click here</a>`;
+				<a href="https://github.com/jflumbansiantar/resume-jul/blob/master/Resume%20Julia%202025.pdf" download="cv_julia_2025">Klik disini</a>` : `
+				<a href="https://github.com/jflumbansiantar/resume-jul/blob/master/Resume%20Julia%202025.pdf" download="cv_julia_2025">Click here</a>`;
 			break;
 		default:
 			contentDiv.innerHTML = '<h2>Page not found!</h2>';
