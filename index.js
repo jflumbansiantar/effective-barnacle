@@ -7,74 +7,85 @@ async function changeContent(page) {
 
 	switch (page) {
 		case 'about':
-			
-			const getAboutPageData = await fetch(`${baseUrl}topic/about?about=About&lang_id=${language}`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-			}});
-			
-			let dataAbout = await getAboutPageData.json();
-			contentDiv.innerHTML = ` ${dataAbout.data.title} <div id='get-detail'>${dataAbout.data.details}</div> `;
-
-			let details = document.getElementById('get-detail').textContent;
-			contentDiv.innerHTML = `${dataAbout.data.title} ${details}`;
-
-			break;
-		case 'projects':
-			const projectCard = await fetch(`${baseUrl}card/lang-id?lang_id=${language}`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-			}});
-			let dataCards = await projectCard.json();
-
-			const getProjectPageData = await fetch(`${baseUrl}topic/about?about=Projects&lang_id=${language}`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-			}});
-			let dataProject = await getProjectPageData.json();
-
-			if(dataCards.statusCode !== 200) {
-				contentDiv.innerHTML = '<h2>Page not found!</h2>';
-			} else {
-				let htmlCards = ``;
-				for (let element = 0; element < dataCards.data.length; element++) {
-					const e = dataCards.data[element];
-					let liHtml = ``;
-					e.stacks.forEach(x => {
-						liHtml += `<li>${x}</li>`
-					});
-					let card = `<div id='project${element}' class="card project ">
-							<h3 class="card-header">${e.title}</h3>
-							<div class="card-body">
-								<h6 class="card-title">
-									${e.description}
-								</h6>
-							</div>
-							<div class="card-footer">
-								<ul>
-									${liHtml}
-								</ul>
-							</div>
-						</div>`;
-
-					htmlCards += card;
-				};
+			try {
+				const getAboutPageData = await fetch(`${baseUrl}topic/about?about=About&lang_id=${language}`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+				}});
 				
-				contentDiv.innerHTML = ` ${dataProject.data.title} ${dataProject.data.details} <div class="row grid text-center"> ${htmlCards} </div>`;
-			}
+				let dataAbout = await getAboutPageData.json();
+				contentDiv.innerHTML = ` ${dataAbout.data.title} <div id='get-detail'>${dataAbout.data.details}</div> `;
 
+				let details = document.getElementById('get-detail').textContent;
+				contentDiv.innerHTML = `${dataAbout.data.title} ${details}`;
+			} catch (error) {
+				contentDiv.innerHTML = '<h2>Page not found!</h2>';
+				contentDiv.style.display='none';
+			}
+			break;
+
+		case 'projects':
+			try {
+				const projectCard = await fetch(`${baseUrl}card/lang-id?lang_id=${language}`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+				}});
+				let dataCards = await projectCard.json();
+
+				const getProjectPageData = await fetch(`${baseUrl}topic/about?about=Projects&lang_id=${language}`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+				}});
+				let dataProject = await getProjectPageData.json();
+
+				if(dataCards.statusCode !== 200) {
+					contentDiv.innerHTML = '<h2>Page not found!</h2>';
+				} else {
+					let htmlCards = ``;
+					for (let element = 0; element < dataCards.data.length; element++) {
+						const e = dataCards.data[element];
+						let liHtml = ``;
+						e.stacks.forEach(x => {
+							liHtml += `<li>${x}</li>`
+						});
+						let card = `<div id='project${element}' class="card project" onclick="this.classList.toggle('project-flipped')">
+								<h3 class="card-header">${e.title}</h3>
+								<div class="card-body">
+									<h6 class="card-title">
+										${e.description}
+									</h6>
+								</div>
+								<div class="card-footer">
+									<ul>
+										${liHtml}
+									</ul>
+								</div>
+							</div>`;
+
+						htmlCards += card;
+					};
+					
+					contentDiv.innerHTML = ` ${dataProject.data.title} ${dataProject.data.details} <div class="row grid text-center"> ${htmlCards} </div>`;
+				}
+
+			} catch (error) {
+				contentDiv.innerHTML = '<h2>Page not found!</h2>';
+				contentDiv.style.display='none';
+			}
 			
 			break;
+
 		case 'resume':
 			contentDiv.innerHTML = language == 'IDN' ? `
 				<button class="btn btn-light"><a href="https://drive.google.com/file/d/1-jagslPLKrGSISK4t_R4ClFGiEjWQK_I/view?usp=sharing" download="cv_julia_2025">Klik disini</a></button>` : `
 				<button class="btn btn-light"><a href="https://drive.google.com/file/d/1-jagslPLKrGSISK4t_R4ClFGiEjWQK_I/view?usp=sharing" download="cv_julia_2025">Click here</a></button>`;
 			break;
+
 		default:
-			contentDiv.innerHTML = '<h2>Page not found!</h2>';
+			contentDiv.innerHTML = `<div class="loader"></div>`;
 			contentDiv.style.display='none';
 	}
 }
@@ -83,11 +94,12 @@ async function changeContent(page) {
 async function getEverythingExceptProjectByLanguageId(lang) {
 	let baseUrl = sessionStorage.getItem('baseUrl');
 
-	const getEverythingExceptProject = await fetch(`${baseUrl}topic/topic-by-lang-id?lang_id=${lang}`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-		}});
+	const getEverythingExceptProject = await fetch(
+		`${baseUrl}topic/topic-by-lang-id?lang_id=${lang}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+	}});
 
 	const found = await getEverythingExceptProject.json();
 	let data = found.data;
@@ -118,11 +130,13 @@ function setLanguageId() {
 		getEverythingExceptProjectByLanguageId('EN');
 		sessionStorage.setItem("languange", "EN");
 		changeContent(getActivePage);
+		footerNote("EN");
 		
 	} else { 
 		getEverythingExceptProjectByLanguageId('IDN');
 		sessionStorage.setItem("languange", "IDN");
 		changeContent(getActivePage);
+		footerNote("IDN");
 	}
 	
 }
@@ -133,10 +147,10 @@ document.getElementById('languageSwitch').addEventListener('change', setLanguage
 
 function paralaxBackGround() {
 	return new FinisherHeader({
-		"count": 25,
+		"count": 50,
 		"size": {
 			"min": 200,
-			"max": 900,
+			"max": 400,
 			"pulse": 0.5
 		},
 		"speed": {
@@ -152,8 +166,8 @@ function paralaxBackGround() {
 		"colors": {
 			"background": "#070f71",
 			"particles": [
-				"#64549C",
-				"#B9BCCB",
+				"#ffb5f9ff",
+				"#9faffeff",
 				"#950032"
 			]
 		},
@@ -169,4 +183,15 @@ function paralaxBackGround() {
 	});
 }
 
+function footerNote(lang) {
+	const contentDivFooter = document.getElementById('footer-note');
+	let text = lang == 'EN' ? `made by Julia (${new Date().getFullYear()}) <br/>
+	The cat from <a href="https://github.com/adryd325/oneko.js/">here</a>` : `dibuat oleh Julia (${new Date().getFullYear()}) <br/>
+	Kucingnya diambil dari <a href="https://github.com/adryd325/oneko.js/" target="_blank">sini</a>`;
 
+	contentDivFooter.innerHTML = text;
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+}
