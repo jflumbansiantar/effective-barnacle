@@ -68,7 +68,7 @@ async function changeContent(page) {
 						htmlCards += card;
 					};
 					
-					contentDiv.innerHTML = ` ${dataProject.data.title} ${dataProject.data.details} <div class="row grid text-center"> ${htmlCards} </div>`;
+					contentDiv.innerHTML = ` ${dataProject.data.title} ${dataProject.data.details} <div id='inner-side-content' class="row grid center text-center"> ${htmlCards} </div>`;
 				}
 
 			} catch (error) {
@@ -147,10 +147,10 @@ document.getElementById('languageSwitch').addEventListener('change', setLanguage
 
 function paralaxBackGround() {
 	return new FinisherHeader({
-		"count": 50,
+		"count": 7,
 		"size": {
-			"min": 200,
-			"max": 400,
+			"min": 1100,
+			"max": 1900,
 			"pulse": 0.5
 		},
 		"speed": {
@@ -164,11 +164,11 @@ function paralaxBackGround() {
 			}
 		},
 		"colors": {
-			"background": "#070f71",
+			"background": "#9138e5",
 			"particles": [
 				"#ffb5f9ff",
-				"#9faffeff",
-				"#950032"
+				"#ffcb57",
+				"#ff333d"
 			]
 		},
 		"blending": "lighten",
@@ -176,9 +176,9 @@ function paralaxBackGround() {
 			"center": 0.15,
 			"edge": 0.05
 		},
-		"skew": 0,
+		"skew": -5,
 		"shapes": [
-			"s", "t"
+			"s", "t", "c"
 		]
 	});
 }

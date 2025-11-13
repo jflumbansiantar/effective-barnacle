@@ -23,7 +23,7 @@ main {
 	position: relative;
 	max-width: 1250px;
   	min-width: 500px;
-	margin: 0 auto;
+	margin: 10px auto;
 	background-color:  #F4F4F6;
 	padding: 20px;
 	border-radius: 8px;
@@ -48,15 +48,16 @@ form button:hover {
 #side-content {
 	position: relative;
 	display: none;
-	max-width: 1200px;
+	max-width: 1000px;
 	max-height: 800px;
-	margin: 0 auto;
-	background-color: transparent;
+	margin: 10px auto;
+	background-color: #F4F4F6;
+	display: inline-block;
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	transition-duration: 4s;
-  	transition-delay: 2s;
+  	transition-delay: 1s;
 	overflow-y: scroll ;
 }
 
@@ -66,11 +67,12 @@ form button:hover {
 
 .project{
   	position: relative;
-	max-width: 570px;
-	margin: 10px;
-	background-color: #B9BCCB;
+	max-width: 47.5%;
+	margin: 10px auto;
+	background-color: #ffdc91;
 	color: #1B1127;
 	padding: 10px;
+	border: 0.9rem;
 	border-radius: 4px;
 	box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
 	/* transition: transform 0.8s;
@@ -88,8 +90,8 @@ form button:hover {
 
 li {
     display: inline-block;
-    background-color: #64549C;
-    color: #f0f0f0;
+    background-color: #ffb5f9ff;
+    /* color: #f0f0f0; */
     font-size: 12px;
     border-radius: 6px;
     padding: 4px 10px;
@@ -102,12 +104,12 @@ button {
 }
 
 .btn-project {
-	background-color: #B9BCCB;
+	background-color: #ffdc91;
 	color: #1B1127;
 }
 
 .btn-project:hover {
-	background-color: #950032;
+	background-color: #9138e5;
 	color:  #F4F4F6
 }
 
@@ -124,14 +126,14 @@ button {
 	font: 0.6em 'Fira Sans';
     bottom: 1rem;
     z-index: 1000;
-	color: #B9BCCB;
+	color: #ffdc91;
 	padding: 5px;
 	box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
 	border-radius: 4px;
 }
 
 .loader {
-  border: 6px solid #B9BCCB; /* Light grey */
+  border: 6px solid #ffdc91; /* Light grey */
   border-top: 6px solid #3498db; /* Blue */
   border-radius: 50%;
   width: 30px;
@@ -150,7 +152,7 @@ button {
   width: 100px;
   height: 50px;
   --light: #d8dbe0;
-  --dark: #950032;
+  --dark: #9138e5;
   --link: rgb(27, 129, 112);
   --link-hover: rgb(24, 94, 82);
 }
@@ -240,7 +242,7 @@ button {
     #content {
       position: relative;
       max-width: 450px;
-      margin: 0 auto;
+	  margin: 10px auto;
       background-color: #F4F4F6;
       padding: 10px;
       border-radius: 4px;
@@ -250,8 +252,8 @@ button {
 		position: relative;
 		display: none;
 		max-width: 550px;
-    max-height: 800px;
-		margin: 0 auto;
+    	max-height: 800px;
+		margin: 10px auto;
 		background-color: #F4F4F6;
 		padding: 10px;
 		border-radius: 4px;
@@ -259,56 +261,27 @@ button {
 		transition-duration: 4s;
 		transition-delay: 2s;
 		overflow-y: scroll ;
+		grid-template-columns: 1fr;
+	}
+	#inner-side-content {
+		grid-template-columns: 1fr;
 	}
 	.project{
-		width: 520px;
-		margin: 10px;
-		background-color: #B9BCCB;
+		width: 547px;
+		margin: 10px auto;
+		background-color: #ffdc91;
 		color: #1B1127;
 		padding: 10px;
 		border-radius: 4px;
 		box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
 	}
 }
-@media(max-width: 500px) {
-    #content {
-      position: relative;
-      max-width: 450px;
-      margin: 0 auto;
-      background-color: #F4F4F6;
-      padding: 10px;
-      border-radius: 4px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-	#side-content {
-		position: relative;
-		display: none;
-		max-width: 550px;
-    max-height: 800px;
-		margin: 0 auto;
-		background-color: #F4F4F6;
-		padding: 10px;
-		border-radius: 4px;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		transition-duration: 4s;
-		transition-delay: 2s;
-		overflow-y: scroll ;
-	}
-	.project{
-		width: 520px;
-		margin: 10px;
-		background-color: #B9BCCB;
-		color: #1B1127;
-		padding: 10px;
-		border-radius: 4px;
-		box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
-	}
-}
+
 @media(max-width: 1000px) {
     #content {
       position: relative;
       max-width: 450px;
-      margin: 0 auto;
+	  margin: 10px auto;
       background-color: #F4F4F6;
       padding: 10px;
       border-radius: 4px;
@@ -318,7 +291,7 @@ button {
 		position: relative;
 		display: none;
 		max-width: 550px;
-    max-height: 800px;
+    	max-height: 800px;
 		margin: 0 auto;
 		background-color: #F4F4F6;
 		padding: 10px;
@@ -330,19 +303,20 @@ button {
 	}
 	.project{
 		width: 520px;
-		margin: 10px;
-		background-color: #B9BCCB;
+		margin: 10px auto;
+		background-color: #ffdc91;
 		color: #1B1127;
 		padding: 10px;
 		border-radius: 4px;
 		box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
 	}
 }
+
 @media(max-width: 750px) {
     #content {
       position: relative;
       max-width: 450px;
-      margin: 0 auto;
+	  margin: 10px auto;
       background-color: #F4F4F6;
       padding: 10px;
       border-radius: 4px;
@@ -364,19 +338,20 @@ button {
 	}
 	.project{
 		width: 520px;
-		margin: 10px;
-		background-color: #B9BCCB;
+		margin: 10px auto;
+		background-color: #ffdc91;
 		color: #1B1127;
 		padding: 10px;
 		border-radius: 4px;
 		box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
 	}
 }
+
 @media(max-width: 720px) {
     #content {
       position: relative;
       max-width: 450px;
-      margin: 0 auto;
+	  margin: 10px auto;
       background-color: #F4F4F6;
       padding: 10px;
       border-radius: 4px;
@@ -386,7 +361,7 @@ button {
 		position: relative;
 		display: none;
 		max-width: 550px;
-    max-height: 800px;
+    	max-height: 800px;
 		margin: 0 auto;
 		background-color: #F4F4F6;
 		padding: 10px;
@@ -398,12 +373,47 @@ button {
 	}
 	.project{
 		width: 520px;
-		margin: 10px;
-		background-color: #B9BCCB;
+		margin: 10px auto;
+		background-color: #ffdc91;
 		color: #1B1127;
 		padding: 10px;
 		border-radius: 4px;
 		box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
 	}
 
+}
+
+@media(max-width: 500px) {
+    #content {
+      position: relative;
+      max-width: 450px;
+	  margin: 10px auto;
+      background-color: #F4F4F6;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+	#side-content {
+		position: relative;
+		display: none;
+		max-width: 550px;
+    max-height: 800px;
+		margin: 0 auto;
+		background-color: #F4F4F6;
+		padding: 10px;
+		border-radius: 4px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		transition-duration: 4s;
+		transition-delay: 2s;
+		overflow-y: scroll ;
+	}
+	.project{
+		width: 520px;
+		margin: 10px auto;
+		background-color: #ffdc91;
+		color: #1B1127;
+		padding: 10px;
+		border-radius: 4px;
+		box-shadow: 0 0 10px rgba(150, 102, 102, 0.1);
+	}
 }
